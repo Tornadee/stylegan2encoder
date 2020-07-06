@@ -46,7 +46,9 @@ def latent_to_image(network_pkl, latent):
     Gs_kwargs.randomize_noise = False
     Gs_kwargs.truncation_psi = 0.5 # default
         
-    images = Gs.run(latent, None, **Gs_kwargs) # [minibatch, height, width, channel]
+    z = np.load(latent)
+    
+    images = Gs.run(z, None, **Gs_kwargs) # [minibatch, height, width, channel]
     jason_num += 1
     PIL.Image.fromarray(images[0], 'RGB').save(dnnlib.make_run_dir_path('jason%04d.png' % jason_num))
         

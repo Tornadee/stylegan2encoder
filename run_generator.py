@@ -38,6 +38,7 @@ def generate_images(network_pkl, seeds, truncation_psi):
 jason_num = 0
         
 def latent_to_image(network_pkl, latent):
+    global jason_num
     print('Jason Loading networks from "%s"...' % network_pkl)
     _G, _D, Gs = pretrained_networks.load_networks(network_pkl)
     

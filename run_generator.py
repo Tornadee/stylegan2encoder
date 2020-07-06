@@ -35,6 +35,15 @@ def generate_images(network_pkl, seeds, truncation_psi):
         images = Gs.run(z, None, **Gs_kwargs) # [minibatch, height, width, channel]
         PIL.Image.fromarray(images[0], 'RGB').save(dnnlib.make_run_dir_path('seed%04d.png' % seed))
 
+jason_num = 0
+        
+def latent_to_image(network_pkl, latent):
+    print('Jason Loading networks from "%s"...' % network_pkl)
+    _G, _D, Gs = pretrained_networks.load_networks(network_pkl)
+    images = Gs.run(latent, None, **Gs_kwargs) # [minibatch, height, width, channel]
+    jason_num += 1
+    PIL.Image.fromarray(images[0], 'RGB').save(dnnlib.make_run_dir_path('jason%04d.png' % jason_num))
+        
 #----------------------------------------------------------------------------
 
 def style_mixing_example(network_pkl, row_seeds, col_seeds, truncation_psi, col_styles, minibatch_size=4):

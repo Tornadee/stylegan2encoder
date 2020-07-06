@@ -153,6 +153,7 @@ Run 'python %(prog)s <subcommand> --help' for subcommand help.''',
     parser_latent_to_img = subparsers.add_parser('latent-to-img', help='Generate images from latent vector')
     parser_latent_to_img.add_argument('--network', help='Network pickle filename', dest='network_pkl', required=True)
     parser_latent_to_img.add_argument('--latent', help='List of random seeds', required=True)
+    parser_latent_to_img.add_argument('--result-dir', help='Root directory for run results (default: %(default)s)', default='results', metavar='DIR')
     
     parser_style_mixing_example = subparsers.add_parser('style-mixing-example', help='Generate style mixing video')
     parser_style_mixing_example.add_argument('--network', help='Network pickle filename', dest='network_pkl', required=True)

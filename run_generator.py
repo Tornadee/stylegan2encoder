@@ -40,6 +40,12 @@ jason_num = 0
 def latent_to_image(network_pkl, latent):
     print('Jason Loading networks from "%s"...' % network_pkl)
     _G, _D, Gs = pretrained_networks.load_networks(network_pkl)
+    
+    Gs_kwargs = dnnlib.EasyDict()
+    Gs_kwargs.output_transform = dict(func=tflib.convert_images_to_uint8, nchw_to_nhwc=True)
+    Gs_kwargs.randomize_noise = False
+    Gs_kwargs.truncation_psi = 0.5 # default
+        
     images = Gs.run(latent, None, **Gs_kwargs) # [minibatch, height, width, channel]
     jason_num += 1
     PIL.Image.fromarray(images[0], 'RGB').save(dnnlib.make_run_dir_path('jason%04d.png' % jason_num))
